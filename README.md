@@ -7,13 +7,9 @@
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[original]: ./examples/original.jpg "Original Image"
+[cropped]: ./examples/original_cropped.jpg "Cropped Image"
+
 
 ## Rubric Points
 Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -52,7 +48,7 @@ The model was trained and validated on different data sets to ensure that the mo
 
 The model used an adam optimizer, so the learning rate was not tuned manually.
 
-####4. Appropriate training data
+#### 4. Appropriate training data
 
 Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road from both tracks.
 
@@ -64,15 +60,17 @@ For details about how I created the training data, see the next section.
 
 I simply follow instruction videos and [NVIDIA's paper][nvidia]. Using CNN makes so much sense for me because the data comes from front cameras and the car need to follow features on the road like human beings.
 
-Except using all center, left and right camera images, I also mirrored the image to prevent left turning tendency.
-
-I commented out several layers to make the model simpler.
+I used all center, left and right camera images and commented out several layers to make the model simpler.
 
 I first trained the model using Udacity's data. The car works fine on first track but go out of the road at the very beginning of the second track.
 
 Then I recorded the data on the second track. Ideally the car should always keep on right lane but I don't have enough patient to practice. So even though I'm a bad driver, I successfuly keep the car on the road in most conditions.
 
 Then I combined Udacity's data and my drive data from second track together and feed them into the same network. The result is good. The car could drive on both tracks.
+
+Below is the example of an original image and it's cropped result to feed into the module:
+
+![Original Image][original] ![Cropped][cropped]
 
 #### 2. Final Model Architecture
 
@@ -97,4 +95,9 @@ After the collection process, I had 13364 data points.
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set.
 
-I used this training data for training the model. The validation set helped determine if the model was close to human behaviors. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for train the model. The validation set helped determine if the model was close to human behaviors. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+
+
+### Result
+
+The car in simulator drives out of the track a little bit a few times. I guess it's because it's hard for me to keep the car in track when collecting data on the second track.  
